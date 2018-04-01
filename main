@@ -1,0 +1,31 @@
+//wrapping around isn't supported yet (which of course means it is crudely supported)
+//as I was cut off from the Internet due to my move
+function enigma(entry) {
+var input = entry.split("");
+var Walzen = [[],[],[],[],[]];
+var output = [[],[],[],[],[]];
+for (i=0; i<Walzen.length; i++) {
+for (j=0; j<input.length; j++) {
+Walzen[i].push(Math.floor(Math.random()*26));
+output[i].push(String.fromCharCode(input[j].charCodeAt()-Walzen[i][j]));
+}
+}
+return [output[4].join(""),Walzen];
+}
+
+enigma("Test");
+
+
+//this part doesn't work for the more complicated version
+//because of the wrap-around problem
+function decode (output,Walzen) {
+var input = [[],[],[],[],output];
+for(k=4; k>0; k--) {
+for(l=0; l<output.length; l++) {
+input[k-1].push(String.fromCharCode(input[k][l].charCodeAt()+Walzen[k][l]));
+}
+}
+return input[0].join("");
+}
+
+decode("H[pk",[[6,25,5,9],[2,9,25,16],[16,15,12,1],[5,19,5,6],[12,10,3,9]]);
